@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: CC0-1.0
+# Copyright (C) 2024 Eric Herman
+
+* OS X support
+  * get access to an OSX machine
+  * add to Makefile:
+	UNAME := $(shell uname)
+
+	ifeq ($(UNAME), Darwin)
+	SHAREDFLAGS = -dynamiclib
+	SHAREDEXT = dylib
+	else
+	SHAREDFLAGS = -shared
+	SHAREDEXT = so
+	endif
+
+	SO_NAME=libfoo.$(SHAREDEXT)
+	ifneq ($(UNAME), Darwin)
+	    SHAREDFLAGS += -Wl,-soname,$(SO_NAME)
+	endif
+
+* MS Widows support
+  * get access to a Visual Studio environemnt
+  * ???
