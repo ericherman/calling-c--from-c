@@ -1,0 +1,56 @@
+# Calling C++ from C
+
+In 2017 John Schember wrote an excellent blog post "Wrapping C++ objects in C":
+
+* https://nachtimwald.com/2017/08/18/wrapping-c-objects-in-c/
+
+The code in this repository is directly inspired by that work.
+
+Mr. Schember's write-up of the approach is quite good,
+there is little reason to repeat that.
+
+The blog post gives fairly good description of the compilation and linking,
+and the reader is reminded to not forget that the shared library needs to be
+in the search path for the linker.
+
+The post finishes with how to use CMake to generate a Makefile.
+This is quite pragmatic, as on OSX "-dynamiclib" is used instead of "-shared",
+shared objects use the ".dylib" extension instead of ".so",
+and the linker must be passed extra flags, e.g.: "-Wl,-soname,foo.dylib" ...
+and on MS Windows it is quite different still.
+
+However, CMake tends to be less transparent than it could be, and thus a more
+simple, platform specific Makefile can be nicer for self-education purposes.
+
+The linux Makefile in this repository shows similar code in action,
+including the slightly tricky linking syntax.
+
+To see typical dynamic linking, type:
+
+	make clean
+	make check-example-thing-test-dynamic
+
+To see static linking with a ".a" archive, type:
+
+	make clean
+	make check-example-thing-test-static-a
+
+To see direct static linking to the source files, type:
+
+	make clean
+	make check-example-thing-test-static
+
+## Makefile visualization
+
+If you have makefile2graph installed and graphviz, then you can see the file
+dependencies:
+
+	make -Bnd \
+		| make2graph \
+		| dot -Tsvg -o calling-c++-from-c.svg \
+		&& firefox ./calling-c++-from-c.svg
+
+## LICENSE
+
+The contents of this repository are provided under the Creative Commons
+CC0 1.0 Universal license.
