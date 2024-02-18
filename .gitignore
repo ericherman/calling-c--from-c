@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: CC0-1.0
+# Copyright (C) 2024 Eric Herman
+
+example-thing-test-dynamic
+example-thing-test-static-a
+example-thing-test-static
+calling-c++-from-c.svg
+*.o
+*.so
+*.so.*
+*.a
+*.bin
+*.d
+
+###################
+# backup files
+###################
+*.bak
+*.bck
+*cache.lib
+$*
+*.swp
+*.000
+*~
